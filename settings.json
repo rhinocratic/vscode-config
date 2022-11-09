@@ -1,0 +1,189 @@
+{
+    "terminal.integrated.commandsToSkipShell": [
+        "language-julia.interrupt"
+    ],
+    "julia.enableTelemetry": false,
+    "docker.showStartPage": false,
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true,
+    "terminal.integrated.fontFamily": "Fira Code",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "vs-kubernetes": {
+        "vscode-kubernetes.kubectl-path.linux": "/home/vlad/.vs-kubernetes/tools/kubectl/kubectl",
+        "vscode-kubernetes.minikube-path.linux": "/home/vlad/.vs-kubernetes/tools/minikube/linux-amd64/minikube",
+        "vscode-kubernetes.helm-path.linux": "/home/vlad/.vs-kubernetes/tools/helm/linux-amd64/helm"
+    },
+    "workbench.colorCustomizations": {
+      "tab.activeBorder": "#ffff00",
+      "tab.unfocusedActiveBorder": "#000000"
+    },
+    "calva.myLeinProfiles": [
+        ":portal",
+        ":reveal",
+        ":prof"
+    ],
+    "calva.myCljAliases": [
+        ":portal",
+        ":reveal"
+    ],
+    "calva.openBrowserWhenFigwheelStarted": false,
+    "calva.replConnectSequences": [
+
+        {
+            "name": "Leiningen + REBL",
+            "projectType": "Leiningen",
+            "cljsType":"none",
+            "menuSelections": {
+                "leinProfiles": ["rebl", "rebl-11", "nrebl"]
+            },
+            "afterCLJReplJackInCode": "((requiring-resolve 'cognitect.rebl/ui))"
+        }
+    ],
+    "calva.prettyPrintingOptions": {
+        "printEngine": "pprint",
+        "enabled": true,
+        "width": 120,
+        "maxLength": 50
+    },
+    "calva.customREPLCommandSnippets": [
+          {
+            "name": "Tap Define Binding",
+            "key": "d",
+            "snippet": "(tap> (def $selection))"
+          },
+          {
+            "name": "Tap Last Exception",
+            "key": "e",
+            "snippet": "(tap> (Throwable->map *e))"
+          },
+          {
+            "name": "Tap Define to Input",
+            "key": "i",
+            "snippet": "(let [v (read-string (read-line))] (tap> (def $selection v)))"
+          },
+          {
+            "name": "Tap Namespace Publics",
+            "key": "n",
+            "snippet": "(tap> (-> (find-ns '$ns) (clojure.datafy/datafy) :publics))"
+          },
+          {
+            "name": "Tap Namespace Cleanup",
+            "key": "z",
+            "snippet": "(tap> (when-let [ns (find-ns '$ns)] (tap> \"Removing $ns...\") (run! #(try (ns-unalias ns %) (catch Throwable _)) (keys (ns-aliases ns))) (run! #(try (ns-unmap ns %) (catch Throwable _)) (keys (ns-interns ns))) (->> (ns-refers ns) (remove (fn [[_ v]] (.startsWith (str v) \"#'clojure.core/\"))) (map key) (run! #(try (ns-unmap ns %) (catch Throwable _))))))"
+          },
+          {
+            "name": "Portal Clear",
+            "key": "k",
+            "snippet": "(portal.api/clear)"
+          },
+          {
+            "name": "Portal Start",
+            "key": "p",
+            "snippet": "(do (ns dev) (def *v (atom nil)) (defn submit [v] (reset! *v v) ((requiring-resolve 'portal.api/submit) v)) (def portal ((requiring-resolve 'portal.api/open) {:launcher :vs-code :portal.launcher/window-title (System/getProperty \"user.dir\")})) (add-tap submit))"
+          },
+          {
+            "name": "Tap Input Code",
+            "key": "q",
+            "snippet": "(let [v (read-string (clojure.string/replace (read-line) \"*v\" \"@dev/*v\"))] (tap> (eval v)))"
+          },
+          {
+            "name": "Portal Viewer",
+            "key": "0",
+            "snippet": "(portal.api/eval-str \"(let [state portal.ui.state/state] (-> (portal.ui.commands/select-none state) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-next-viewer state)) (.then #(portal.ui.commands/select-none state))))\")"
+          },
+          {
+            "name": "Portal Expand First",
+            "key": "1",
+            "snippet": "(portal.api/eval-str \"(let [state portal.ui.state/state] (-> (portal.ui.commands/select-none state) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/toggle-expand state)) (.then #(portal.ui.commands/select-none state))))\")"
+          },
+          {
+            "name": "Portal Expand Second",
+            "key": "2",
+            "snippet": "(portal.api/eval-str \"(let [state portal.ui.state/state] (-> (portal.ui.commands/select-none state) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/toggle-expand state)) (.then #(portal.ui.commands/select-none state))))\")"
+          },
+          {
+            "name": "Portal Expand Third",
+            "key": "3",
+            "snippet": "(portal.api/eval-str \"(let [state portal.ui.state/state] (-> (portal.ui.commands/select-none state) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/toggle-expand state)) (.then #(portal.ui.commands/select-none state))))\")"
+          },
+          {
+            "name": "Portal Expand Fourth",
+            "key": "4",
+            "snippet": "(portal.api/eval-str \"(let [state portal.ui.state/state] (-> (portal.ui.commands/select-none state) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/toggle-expand state)) (.then #(portal.ui.commands/select-none state))))\")"
+          },
+          {
+            "name": "Portal Expand Fifth",
+            "key": "5",
+            "snippet": "(portal.api/eval-str \"(let [state portal.ui.state/state] (-> (portal.ui.commands/select-none state) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/select-child state)) (.then #(portal.ui.commands/toggle-expand state)) (.then #(portal.ui.commands/select-none state))))\")"
+          },
+    ],
+    "search.exclude": {
+        "**/.calva/output-window/output.calva-repl": true
+    },
+    "workbench.editor.untitled.hint": "hidden",
+    "security.workspace.trust.untrustedFiles": "open",
+
+    "java.home": "/usr/lib/jvm/java-17-openjdk-amd64",
+
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "FSharp.suggestGitignore": false,
+    "redhat.telemetry.enabled": true,
+
+    "[rust]": {
+        "editor.formatOnSave": true,
+    },
+    "rust.clippy_preference": "on",
+    "rust.features": [
+
+    ],
+    "rust.all_features": true,
+    "[elixir]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.wordBasedSuggestions": false,
+        "editor.formatOnType": true,
+        "editor.trimAutoWhitespace": false,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true
+    },
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "editor.guides.indentation": true,
+    "jira-plugin.baseUrl": "https://statsbomb.atlassian.net/jira",
+    "jira-plugin.gitIntegration": true,
+    "jira-plugin.username": "andrew.baxter@statsbomb.com",
+    "editor.unicodeHighlight.allowedCharacters": {
+        "꞉": true,
+        " ": true
+    },
+    "calva.paredit.defaultKeyMap": "strict",
+    "calva.evaluationSendCodeToOutputWindow": false,
+    "julia.symbolCacheDownload": true,
+    "cmake.configureOnOpen": true,
+    "editor.minimap.enabled": false,
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": false
+    },
+    "files.trimTrailingWhitespace": true,
+    "diffEditor.renderSideBySide": false,
+    "calva.showCalvaSaysOnStart": false,
+    "npm.keybindingsChangedWarningShown": true,
+    "workbench.startupEditor": "none",
+    "workbench.editor.enablePreview": false
+}
